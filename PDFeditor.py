@@ -24,17 +24,37 @@ def extractText():
     pass
 
 
+def insertImage() -> None:
+    # the file to be inserted
+    pdf_to_add = "blank.pdf"
+
+    for i in range(1, 4):
+        # the image to be insert
+        image_to_add = "ticket-" + str(i) + ".png"
+
+        # Set the size and coordinates of the image
+        img = fitz.Rect(400, 400, 600, 600)
+
+        # open the pdf file
+        document = fitz.open(pdf_to_add)
+
+        # choice the page
+        page = document[0]
+        page.insertImage(img, image_to_add)
+
+        # new file with image added
+        new_file = "added" + str(i) + ".pdf"
+        document.save(new_file)
+
+        document.close()
+
+
 if __name__ == '__main__':
 
-    fileName = input("Enter the PDF file name: ")
-    if (os.path.exists("ticket_pdf/" + fileName + ".pdf")):
-        extractImage(fileName)
-    else:
-        print("this file does not exist")
+    # fileName = input("Enter the PDF file name: ")
+    # if (os.path.exists("ticket_pdf/" + fileName + ".pdf")):
+    #     extractImage(fileName)
+    # else:
+    #     print("this file does not exist")
 
-    # for page in file:
-    #     for image in page.getImageList():
-    #         # print(image)
-    #         pic = fitz.Pixmap(file, image[0])
-    #         finalpic = fitz.Pixmap(fitz.csRGB, pic)
-    #         finalpic.writePNG("page-" + str(page.number) + ".png")
+    insertImage()
